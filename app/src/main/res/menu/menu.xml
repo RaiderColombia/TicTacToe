@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/start_new_game"
+        android:title="@string/star_new_game_label" />
+    <item
+        android:id="@+id/quit"
+        android:title="@string/quit_label" />
+</menu>
