@@ -10,9 +10,9 @@
     <string name="turn_human">Your turn.</string>
     <string name="turn_computer">Android\'s turn.</string>
 
-    <string name="result_tie">It\'s a tie.</string>
-    <string name="result_human_wins">You won!</string>
-    <string name="result_computer_wins">Android won!</string>
+    <string name="result_tie">Game Over: It\'s a tie!.</string>
+    <string name="result_human_wins">Game Over: You won!</string>
+    <string name="result_computer_wins">Game Over: Android won!</string>
 
     <string name="star_new_game_label">Start new game</string>
     <string name="quit_label">Quit</string>

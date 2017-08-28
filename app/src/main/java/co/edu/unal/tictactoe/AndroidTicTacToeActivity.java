@@ -2,6 +2,7 @@ package co.edu.unal.tictactoe;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,10 +22,13 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
     private TextView mComputerScoreTextView;
 
     private boolean mGameOver = false;
+    private boolean mThinking = false;
     private char mTurn = TicTacToeGame.COMPUTER_PLAYER;
     private int mHumanWins = 0;
     private int mComputerWins = 0;
     private int mTies = 0;
+
+    private final Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +69,14 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
                 startNewGame();
                 return true;
             case R.id.quit:
-                Toast.makeText(getApplicationContext(), "See you soon!", Toast.LENGTH_SHORT);
-                finish();
-                System.exit(0);
+                Toast.makeText(getApplicationContext(), "See you soon!", Toast.LENGTH_SHORT).show();;
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                        System.exit(0);
+                    }
+                }, 2000);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -83,10 +92,7 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
         }
         if (mTurn == TicTacToeGame.HUMAN_PLAYER) {
             mTurn = TicTacToeGame.COMPUTER_PLAYER;
-            mInfoTextView.setText(R.string.first_computer);
-            int move = mGame.getComputerMove();
-            setMove(TicTacToeGame.COMPUTER_PLAYER, move);
-            mInfoTextView.setText(R.string.turn_human);
+            androidMove(getApplicationContext().getResources().getString(R.string.first_computer));
         }
         else {
             mTurn = TicTacToeGame.HUMAN_PLAYER;
@@ -106,6 +112,45 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
             mBoardButtons[location].setTextColor(Color.rgb(200, 0, 0));
     }
 
+    private void androidMove(String message){
+        mInfoTextView.setText(message);
+        mThinking = true;
+        Toast.makeText(getApplicationContext(), "Thinking...", Toast.LENGTH_SHORT).show();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                int move = mGame.getComputerMove();
+                setMove(TicTacToeGame.COMPUTER_PLAYER, move);
+                mThinking = false;
+                updateWinner(mGame.checkForWinner());
+            }
+        }, 2000);
+    }
+
+    private void updateWinner(int winner){
+        if (winner == 0)
+            mInfoTextView.setText(R.string.turn_human);
+        else {
+            if (winner == 1) {
+                mTies++;
+                mTieScoreTextView.setText(Integer.toString(mTies));
+                mInfoTextView.setText(R.string.result_tie);
+            }
+            else if (winner == 2) {
+                mHumanWins++;
+                mHumanScoreTextView.setText(Integer.toString(mHumanWins));
+                mInfoTextView.setText(R.string.result_human_wins);
+            }
+            else if (winner == 3) {
+                mComputerWins++;
+                mComputerScoreTextView.setText(Integer.toString(mComputerWins));
+                mInfoTextView.setText(R.string.result_computer_wins);
+            }
+            Toast.makeText(getApplicationContext(), mInfoTextView.getText(), Toast.LENGTH_SHORT).show();
+            mGameOver = true;
+        }
+    }
+
     private class ButtonClickListener implements View.OnClickListener {
         int location;
 
@@ -114,37 +159,14 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
         }
 
         public void onClick(View view) {
-            if (!mGameOver && mBoardButtons[location].isEnabled()) {
+            if (!mGameOver && mBoardButtons[location].isEnabled() && !mThinking) {
                 setMove(TicTacToeGame.HUMAN_PLAYER, location);
 
                 int winner = mGame.checkForWinner();
                 if (winner == 0) {
-                    mInfoTextView.setText(R.string.turn_computer);
-                    int move = mGame.getComputerMove();
-                    setMove(TicTacToeGame.COMPUTER_PLAYER, move);
-                    winner = mGame.checkForWinner();
-                }
-
-                if (winner == 0)
-                    mInfoTextView.setText(R.string.turn_human);
-                else {
-                    if (winner == 1) {
-                        mTies++;
-                        mTieScoreTextView.setText(Integer.toString(mTies));
-                        mInfoTextView.setText(R.string.result_tie);
-                    }
-                    else if (winner == 2) {
-                        mHumanWins++;
-                        mHumanScoreTextView.setText(Integer.toString(mHumanWins));
-                        mInfoTextView.setText(R.string.result_human_wins);
-                    }
-                    else if (winner == 3) {
-                        mComputerWins++;
-                        mComputerScoreTextView.setText(Integer.toString(mComputerWins));
-                        mInfoTextView.setText(R.string.result_computer_wins);
-                    }
-
-                    mGameOver = true;
+                    androidMove(getApplicationContext().getResources().getString(R.string.turn_computer));
+                }else {
+                    updateWinner(mGame.checkForWinner());
                 }
             }
         }
