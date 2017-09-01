@@ -1,8 +1,11 @@
 package co.edu.unal.tictactoe;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -68,15 +71,14 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
             case R.id.start_new_game:
                 startNewGame();
                 return true;
+            case R.id.difficulty_level:
+                GeneralDialogFragment.newInstance(GeneralDialogFragment.DIALOG_DIFFICULTY_ID).show(getFragmentManager(), "dialog_fragment_difficulty_level");
+                return true;
             case R.id.quit:
-                Toast.makeText(getApplicationContext(), "See you soon!", Toast.LENGTH_SHORT).show();;
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        finish();
-                        System.exit(0);
-                    }
-                }, 2000);
+                GeneralDialogFragment.newInstance(GeneralDialogFragment.DIALOG_QUIT_ID).show(getFragmentManager(), "dialog_fragment_quit");
+                return true;
+            case R.id.about:
+                GeneralDialogFragment.newInstance(GeneralDialogFragment.DIALOG_ABOUT).show(getFragmentManager(), "dialog_fragment_about");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -170,5 +172,9 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public TicTacToeGame getGame(){
+        return mGame;
     }
 }
