@@ -60,11 +60,13 @@ public class TicTacToeGame {
 	 * @param player - The human or computer player
 	 * @param location - The location (0-8) to place the move
 	 */
-	public void setMove(char player, int location) {
+	public boolean setMove(char player, int location) {
 		if (location >= 0 && location < BOARD_SIZE &&
 				mBoard[location] == OPEN_SPOT) {
 			mBoard[location] = player;
+			return true;
 		}
+		return false;
 	}
 	
 	/**
@@ -203,5 +205,11 @@ public class TicTacToeGame {
     public void setDifficultyLevel(DifficultyLevel mDifficultyLevel) {
         this.mDifficultyLevel = mDifficultyLevel;
     }
+
+	public char getBoardOccupant(int location) {
+		if (location >= 0 && location < BOARD_SIZE)
+			return mBoard[location];
+		return '?';
+	}
 }
 

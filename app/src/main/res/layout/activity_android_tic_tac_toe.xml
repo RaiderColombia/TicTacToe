@@ -5,73 +5,11 @@
     android:layout_height="fill_parent"
     android:gravity="center_horizontal" >
 
-    <TableLayout
-        android:id="@+id/play_grid"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp" >
-
-        <TableRow android:gravity="center_horizontal">
-
-            <Button style="@style/Widget.AppCompat.Button.Small"
-                android:id="@+id/one"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:textSize="70sp" />
-
-            <Button style="@style/Widget.AppCompat.Button.Small"
-                android:id="@+id/two"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:textSize="70sp"/>
-
-            <Button style="@style/Widget.AppCompat.Button.Small"
-                android:id="@+id/three"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:textSize="70sp"/>
-        </TableRow>
-
-        <TableRow android:gravity="center_horizontal">
-            <Button style="@style/Widget.AppCompat.Button.Small"
-                android:id="@+id/four"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:textSize="70sp" />
-
-            <Button style="@style/Widget.AppCompat.Button.Small"
-                android:id="@+id/five"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:textSize="70sp" />
-
-            <Button style="@style/Widget.AppCompat.Button.Small"
-                android:id="@+id/six"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:textSize="70sp" />
-        </TableRow>
-
-        <TableRow android:gravity="center_horizontal">
-            <Button style="@style/Widget.AppCompat.Button.Small"
-                android:id="@+id/seven"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:textSize="70sp" />
-
-            <Button style="@style/Widget.AppCompat.Button.Small"
-                android:id="@+id/eight"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:textSize="70sp" />
-
-            <Button style="@style/Widget.AppCompat.Button.Small"
-                android:id="@+id/nine"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:textSize="70sp" />
-        </TableRow>
-    </TableLayout>
+    <co.edu.unal.tictactoe.BoardView
+        android:id="@+id/board"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="15dp"/>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
