@@ -16,9 +16,11 @@
 
     <string name="star_new_game_label">Start new game</string>
     <string name="difficulty_level_label">Select difficulty level</string>
+    <string name="reset_scores_label">Reset Scores</string>
     <string name="about_label">About</string>
     <string name="quit_label">Quit</string>
     <string name="dialog_quit_question">Are you sure you want to quit?</string>
+    <string name="dialog_reset_question">Are you sure you want to reset scores?</string>
 
     <string name="difficulty_choose">Choose a difficulty level</string>
     <string name="difficulty_easy">Easy</string>

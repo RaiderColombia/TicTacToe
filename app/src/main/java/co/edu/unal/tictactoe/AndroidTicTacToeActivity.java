@@ -1,5 +1,6 @@
 package co.edu.unal.tictactoe;
 
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -36,6 +37,8 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
 
     private final Handler handler = new Handler();
 
+    private SharedPreferences mPrefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,8 +54,19 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
         mBoardView.setGame(mGame);
         mBoardView.setOnTouchListener(mTouchListener);
 
+        mPrefs = getSharedPreferences("ttt_prefs", MODE_PRIVATE);
+        mHumanWins = mPrefs.getInt("mHumanWins", 0);
+        mComputerWins = mPrefs.getInt("mComputerWins", 0);
+        mTies = mPrefs.getInt("mTies", 0);
+
         if (savedInstanceState == null) {
             startNewGame();
+        }else{
+            mGame.setBoardState(savedInstanceState.getCharArray("board"));
+            mGameOver = savedInstanceState.getBoolean("mGameOver");
+            mInfoTextView.setText(savedInstanceState.getCharSequence("info"));
+            mTurn = savedInstanceState.getChar("mTurn");
+            mGoFirst = savedInstanceState.getChar("mGoFirst");
         }
         displayScores();
     }
@@ -69,6 +83,16 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
         super.onPause();
         mHumanMediaPlayer.release();
         mComputerMediaPlayer.release();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SharedPreferences.Editor editor = mPrefs.edit();
+        editor.putInt("mHumanWins", mHumanWins);
+        editor.putInt("mComputerWins", mComputerWins);
+        editor.putInt("mTies", mTies);
+        editor.commit();
     }
 
     @Override
@@ -89,6 +113,9 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
             case R.id.quit:
                 GeneralDialogFragment.newInstance(GeneralDialogFragment.DIALOG_QUIT_ID).show(getFragmentManager(), "dialog_fragment_quit");
                 return true;
+            case R.id.reset_scores:
+                GeneralDialogFragment.newInstance(GeneralDialogFragment.DIALOG_RESET).show(getFragmentManager(), "dialog_fragment_reset");
+                return true;
             case R.id.about:
                 GeneralDialogFragment.newInstance(GeneralDialogFragment.DIALOG_ABOUT).show(getFragmentManager(), "dialog_fragment_about");
                 return true;
@@ -105,24 +132,6 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
         outState.putCharSequence("info", mInfoTextView.getText());
         outState.putChar("mGoFirst", mGoFirst);
         outState.putChar("mTurn", mTurn);
-        outState.putInt("mHumanWins", Integer.valueOf(mHumanWins));
-        outState.putInt("mComputerWins", Integer.valueOf(mComputerWins));
-        outState.putInt("mTies", Integer.valueOf(mTies));
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        mGame.setBoardState(savedInstanceState.getCharArray("board"));
-        mGameOver = savedInstanceState.getBoolean("mGameOver");
-        mInfoTextView.setText(savedInstanceState.getCharSequence("info"));
-        mHumanWins = savedInstanceState.getInt("mHumanWins");
-        mComputerWins = savedInstanceState.getInt("mComputerWins");
-        mTies = savedInstanceState.getInt("mTies");
-        mTurn = savedInstanceState.getChar("mTurn");
-        mGoFirst = savedInstanceState.getChar("mGoFirst");
-        displayScores();
     }
 
     private void startNewGame(){
@@ -208,6 +217,13 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
         mHumanScoreTextView.setText(Integer.toString(mHumanWins));
         mComputerScoreTextView.setText(Integer.toString(mComputerWins));
         mTieScoreTextView.setText(Integer.toString(mTies));
+    }
+
+    public void resetScores(){
+        mHumanWins = 0;
+        mComputerWins = 0;
+        mTies = 0;
+        displayScores();
     }
 
     private OnTouchListener mTouchListener = new OnTouchListener() {

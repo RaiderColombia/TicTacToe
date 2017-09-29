@@ -19,6 +19,7 @@ public class GeneralDialogFragment extends DialogFragment {
     public static final int DIALOG_DIFFICULTY_ID = 0;
     public static final int DIALOG_QUIT_ID = 1;
     public static final int DIALOG_ABOUT = 2;
+    public static final int DIALOG_RESET = 3;
 
     private int choice;
 
@@ -45,6 +46,16 @@ public class GeneralDialogFragment extends DialogFragment {
                             public void onClick(DialogInterface dialog, int id) {
                                 Toast.makeText(activity.getApplicationContext(), "See you soon!", Toast.LENGTH_SHORT).show();
                                 activity.finish();
+                            }
+                        })
+                        .setNegativeButton("No", null);
+                break;
+            case DIALOG_RESET:
+                builder.setMessage(R.string.dialog_quit_question)
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                activity.resetScores();
                             }
                         })
                         .setNegativeButton("No", null);
