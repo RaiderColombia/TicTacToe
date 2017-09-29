@@ -4,6 +4,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,6 +25,7 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
 
     private boolean mGameOver = false;
     private boolean mThinking = false;
+    private char mGoFirst = TicTacToeGame.HUMAN_PLAYER;
     private char mTurn = TicTacToeGame.COMPUTER_PLAYER;
     private int mHumanWins = 0;
     private int mComputerWins = 0;
@@ -49,7 +51,10 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
         mBoardView.setGame(mGame);
         mBoardView.setOnTouchListener(mTouchListener);
 
-        startNewGame();
+        if (savedInstanceState == null) {
+            startNewGame();
+        }
+        displayScores();
     }
 
     @Override
@@ -92,15 +97,47 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        outState.putCharArray("board", mGame.getBoardState());
+        outState.putBoolean("mGameOver", mGameOver);
+        outState.putCharSequence("info", mInfoTextView.getText());
+        outState.putChar("mGoFirst", mGoFirst);
+        outState.putChar("mTurn", mTurn);
+        outState.putInt("mHumanWins", Integer.valueOf(mHumanWins));
+        outState.putInt("mComputerWins", Integer.valueOf(mComputerWins));
+        outState.putInt("mTies", Integer.valueOf(mTies));
+        Log.d("TicTacToe", "OnSave " + String.valueOf(mHumanWins));
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        mGame.setBoardState(savedInstanceState.getCharArray("board"));
+        mGameOver = savedInstanceState.getBoolean("mGameOver");
+        mInfoTextView.setText(savedInstanceState.getCharSequence("info"));
+        mHumanWins = savedInstanceState.getInt("mHumanWins");
+        mComputerWins = savedInstanceState.getInt("mComputerWins");
+        mTies = savedInstanceState.getInt("mTies");
+        mTurn = savedInstanceState.getChar("mTurn");
+        mGoFirst = savedInstanceState.getChar("mGoFirst");
+        Log.d("TicTacToe", "OnRestore " + String.valueOf(mHumanWins));
+        displayScores();
+    }
+
     private void startNewGame(){
         mGame.clearBoard();
         mBoardView.invalidate();
-        if (mTurn == TicTacToeGame.HUMAN_PLAYER) {
+        if (mGoFirst == TicTacToeGame.COMPUTER_PLAYER) {
+            mGoFirst = TicTacToeGame.HUMAN_PLAYER;
             mTurn = TicTacToeGame.COMPUTER_PLAYER;
             mInfoTextView.setText(getApplicationContext().getResources().getString(R.string.first_computer));
             androidMove();
         }
         else {
+            mGoFirst = TicTacToeGame.COMPUTER_PLAYER;
             mTurn = TicTacToeGame.HUMAN_PLAYER;
             mInfoTextView.setText(R.string.first_human);
         }
@@ -167,6 +204,12 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
         }else{
             changeTurn();
         }
+    }
+
+    private void displayScores() {
+        mHumanScoreTextView.setText(Integer.toString(mHumanWins));
+        mComputerScoreTextView.setText(Integer.toString(mComputerWins));
+        mTieScoreTextView.setText(Integer.toString(mTies));
     }
 
     private OnTouchListener mTouchListener = new OnTouchListener() {

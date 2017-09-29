@@ -211,5 +211,21 @@ public class TicTacToeGame {
 			return mBoard[location];
 		return '?';
 	}
+
+	public char[] getBoardState() {
+		return mBoard;
+	}
+
+	public void setBoardState(char[] board) {
+		mBoard = board.clone();
+	}
+
+    @Override
+    public String toString() {
+        return mBoard[0] + "|" + mBoard[1] + "|" + mBoard[2] + "\n" +
+                mBoard[3] + "|" + mBoard[4] + "|" + mBoard[5] + "\n" +
+                mBoard[6] + "|" + mBoard[7] + "|" + mBoard[8];
+
+    }
 }
 
