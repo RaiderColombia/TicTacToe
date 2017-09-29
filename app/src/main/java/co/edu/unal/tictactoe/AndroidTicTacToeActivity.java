@@ -58,6 +58,8 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
         mHumanWins = mPrefs.getInt("mHumanWins", 0);
         mComputerWins = mPrefs.getInt("mComputerWins", 0);
         mTies = mPrefs.getInt("mTies", 0);
+        int difficultyLevel = mPrefs.getInt("difficultyLevel", TicTacToeGame.DifficultyLevel.Easy.ordinal());
+        mGame.setDifficultyLevel(TicTacToeGame.DifficultyLevel.values()[difficultyLevel]);
 
         if (savedInstanceState == null) {
             startNewGame();
@@ -67,6 +69,10 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
             mInfoTextView.setText(savedInstanceState.getCharSequence("info"));
             mTurn = savedInstanceState.getChar("mTurn");
             mGoFirst = savedInstanceState.getChar("mGoFirst");
+
+            if (!mGameOver && mTurn == TicTacToeGame.COMPUTER_PLAYER) {
+                androidMove();
+            }
         }
         displayScores();
     }
@@ -92,6 +98,7 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
         editor.putInt("mHumanWins", mHumanWins);
         editor.putInt("mComputerWins", mComputerWins);
         editor.putInt("mTies", mTies);
+        editor.putInt("difficultyLevel", mGame.getDifficultyLevel().ordinal());
         editor.commit();
     }
 
@@ -167,7 +174,10 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
             public void run() {
             int move = mGame.getComputerMove();
             if(setMove(TicTacToeGame.COMPUTER_PLAYER, move)) {
-                mComputerMediaPlayer.start();
+                try {
+                    mComputerMediaPlayer.start();
+                }
+                catch (IllegalStateException e) {};
                 updateWinner(mGame.checkForWinner());
             }
             mThinking = false;

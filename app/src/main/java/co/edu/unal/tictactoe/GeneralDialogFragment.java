@@ -51,7 +51,7 @@ public class GeneralDialogFragment extends DialogFragment {
                         .setNegativeButton("No", null);
                 break;
             case DIALOG_RESET:
-                builder.setMessage(R.string.dialog_quit_question)
+                builder.setMessage(R.string.dialog_reset_question)
                         .setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
