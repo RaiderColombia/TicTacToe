@@ -108,7 +108,6 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
         outState.putInt("mHumanWins", Integer.valueOf(mHumanWins));
         outState.putInt("mComputerWins", Integer.valueOf(mComputerWins));
         outState.putInt("mTies", Integer.valueOf(mTies));
-        Log.d("TicTacToe", "OnSave " + String.valueOf(mHumanWins));
     }
 
     @Override
@@ -123,7 +122,6 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
         mTies = savedInstanceState.getInt("mTies");
         mTurn = savedInstanceState.getChar("mTurn");
         mGoFirst = savedInstanceState.getChar("mGoFirst");
-        Log.d("TicTacToe", "OnRestore " + String.valueOf(mHumanWins));
         displayScores();
     }
 
