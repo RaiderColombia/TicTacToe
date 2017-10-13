@@ -60,40 +60,6 @@ public class GeneralDialogFragment extends DialogFragment {
                         })
                         .setNegativeButton("No", null);
                 break;
-            case DIALOG_DIFFICULTY_ID:
-                builder.setTitle(R.string.difficulty_choose);
-                final CharSequence[] levels = {
-                        getResources().getString(R.string.difficulty_easy),
-                        getResources().getString(R.string.difficulty_harder),
-                        getResources().getString(R.string.difficulty_expert)
-                };
-                int selected = -1;
-                if (activity.getGame().getDifficultyLevel() == TicTacToeGame.DifficultyLevel.Easy){
-                    selected = 0;
-                }else if (activity.getGame().getDifficultyLevel() == TicTacToeGame.DifficultyLevel.Harder) {
-                    selected = 1;
-                }else if (activity.getGame().getDifficultyLevel() == TicTacToeGame.DifficultyLevel.Expert) {
-                    selected = 2;
-                }
-                builder.setSingleChoiceItems(levels, selected, new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        switch (which){
-                            case 0:
-                                activity.getGame().setDifficultyLevel(TicTacToeGame.DifficultyLevel.Easy);
-                                break;
-                            case 1:
-                                activity.getGame().setDifficultyLevel(TicTacToeGame.DifficultyLevel.Harder);
-                                break;
-                            case 2:
-                                activity.getGame().setDifficultyLevel(TicTacToeGame.DifficultyLevel.Expert);
-                                break;
-                        }
-                        Toast.makeText(activity.getApplicationContext(), levels[which], Toast.LENGTH_SHORT).show();
-                    }
-                });
-                break;
             case DIALOG_ABOUT:
                 View layout = activity.getLayoutInflater().inflate(R.layout.dialog_about, null);
                 builder.setView(layout);

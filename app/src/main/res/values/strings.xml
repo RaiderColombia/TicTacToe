@@ -16,6 +16,7 @@
 
     <string name="star_new_game_label">Start new game</string>
     <string name="difficulty_level_label">Select difficulty level</string>
+    <string name="settings_label">Settings</string>
     <string name="reset_scores_label">Reset Scores</string>
     <string name="about_label">About</string>
     <string name="quit_label">Quit</string>

@@ -1,11 +1,12 @@
 package co.edu.unal.tictactoe;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -39,6 +40,8 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
 
     private SharedPreferences mPrefs;
 
+    private boolean mSoundOn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,12 +57,21 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
         mBoardView.setGame(mGame);
         mBoardView.setOnTouchListener(mTouchListener);
 
-        mPrefs = getSharedPreferences("ttt_prefs", MODE_PRIVATE);
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        mSoundOn = mPrefs.getBoolean(Settings.SOUND_PREFERENCE_KEY, true);
+
         mHumanWins = mPrefs.getInt("mHumanWins", 0);
         mComputerWins = mPrefs.getInt("mComputerWins", 0);
         mTies = mPrefs.getInt("mTies", 0);
-        int difficultyLevel = mPrefs.getInt("difficultyLevel", TicTacToeGame.DifficultyLevel.Easy.ordinal());
-        mGame.setDifficultyLevel(TicTacToeGame.DifficultyLevel.values()[difficultyLevel]);
+
+        String difficultyLevel = mPrefs.getString(Settings.DIFFICULTY_PREFERENCE_KEY,
+                getResources().getString(R.string.difficulty_harder));
+        if (difficultyLevel.equals(getResources().getString(R.string.difficulty_easy)))
+            mGame.setDifficultyLevel(TicTacToeGame.DifficultyLevel.Easy);
+        else if (difficultyLevel.equals(getResources().getString(R.string.difficulty_harder)))
+            mGame.setDifficultyLevel(TicTacToeGame.DifficultyLevel.Harder);
+        else
+            mGame.setDifficultyLevel(TicTacToeGame.DifficultyLevel.Expert);
 
         if (savedInstanceState == null) {
             startNewGame();
@@ -114,8 +126,8 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
             case R.id.start_new_game:
                 startNewGame();
                 return true;
-            case R.id.difficulty_level:
-                GeneralDialogFragment.newInstance(GeneralDialogFragment.DIALOG_DIFFICULTY_ID).show(getFragmentManager(), "dialog_fragment_difficulty_level");
+            case R.id.settings:
+                startActivityForResult(new Intent(this, SettingsActivity.class), 0);
                 return true;
             case R.id.quit:
                 GeneralDialogFragment.newInstance(GeneralDialogFragment.DIALOG_QUIT_ID).show(getFragmentManager(), "dialog_fragment_quit");
@@ -128,6 +140,21 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RESULT_CANCELED) {
+            mSoundOn = mPrefs.getBoolean(Settings.SOUND_PREFERENCE_KEY, true);
+            String difficultyLevel = mPrefs.getString(Settings.DIFFICULTY_PREFERENCE_KEY,
+                    getResources().getString(R.string.difficulty_harder));
+            if (difficultyLevel.equals(getResources().getString(R.string.difficulty_easy)))
+                mGame.setDifficultyLevel(TicTacToeGame.DifficultyLevel.Easy);
+            else if (difficultyLevel.equals(getResources().getString(R.string.difficulty_harder)))
+                mGame.setDifficultyLevel(TicTacToeGame.DifficultyLevel.Harder);
+            else
+                mGame.setDifficultyLevel(TicTacToeGame.DifficultyLevel.Expert);
         }
     }
 
@@ -175,7 +202,8 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
             int move = mGame.getComputerMove();
             if(setMove(TicTacToeGame.COMPUTER_PLAYER, move)) {
                 try {
-                    mComputerMediaPlayer.start();
+                    if (mSoundOn)
+                        mComputerMediaPlayer.start();
                 }
                 catch (IllegalStateException e) {};
                 updateWinner(mGame.checkForWinner());
@@ -208,7 +236,8 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
                 case 2:
                     mHumanWins++;
                     mHumanScoreTextView.setText(Integer.toString(mHumanWins));
-                    mInfoTextView.setText(R.string.result_human_wins);
+                    String defaultMessage = getResources().getString(R.string.result_human_wins);
+                    mInfoTextView.setText(mPrefs.getString("victory_message", defaultMessage));
                     break;
                 case 3:
                     mComputerWins++;
@@ -244,7 +273,8 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
 
             if(!mThinking){
                 if (!mGameOver && setMove(mTurn, pos)){
-                    mHumanMediaPlayer.start();
+                    if (mSoundOn)
+                        mHumanMediaPlayer.start();
                     updateWinner(mGame.checkForWinner());
                     if(!mGameOver){
                         androidMove();
