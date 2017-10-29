@@ -9,18 +9,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AndroidTicTacToeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".SettingsActivity"
-            android:parentActivityName=".AndroidTicTacToeActivity">
+        <activity android:name=".graphics.activities.AndroidTicTacToeActivity"
+            android:parentActivityName=".graphics.activities.LoginActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".AndroidTicTacToeActivity" />
+                android:value=".graphics.activities.LoginActivity" />
+        </activity>
+        <activity android:name=".graphics.activities.SettingsActivity"
+            android:parentActivityName=".graphics.activities.AndroidTicTacToeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".graphics.activities.AndroidTicTacToeActivity" />
+        </activity>
+        <activity android:name=".graphics.activities.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

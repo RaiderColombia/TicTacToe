@@ -14,11 +14,6 @@
         android:icon="@drawable/ic_settings"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/reset_scores"
-        android:title="@string/reset_scores_label"
-        android:icon="@drawable/ic_reset"
-        app:showAsAction="ifRoom"/>
-    <item
         android:id="@+id/about"
         android:title="@string/about_label"
         android:icon="@drawable/ic_about"

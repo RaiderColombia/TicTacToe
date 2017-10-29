@@ -1,7 +1,6 @@
-package co.edu.unal.tictactoe;
+package co.edu.unal.tictactoe.graphics.fragments;
 
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
@@ -9,12 +8,14 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
+import co.edu.unal.tictactoe.R;
+
 /**
  * TicTacToe
  * Created by Jhon Ramirez on 10/12/17.
  * Universidad Nacional de Colombia
  */
-public class Settings extends PreferenceFragment {
+public class SettingsFragment extends PreferenceFragment {
 
     public static final String SOUND_PREFERENCE_KEY = "sound";
     public static final String DIFFICULTY_PREFERENCE_KEY = "difficulty_level";

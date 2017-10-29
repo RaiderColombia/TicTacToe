@@ -1,4 +1,4 @@
-package co.edu.unal.tictactoe;
+package co.edu.unal.tictactoe.graphics.views;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,6 +9,9 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
+
+import co.edu.unal.tictactoe.R;
+import co.edu.unal.tictactoe.logic.TicTacToeGame;
 
 /**
  * TicTacToe

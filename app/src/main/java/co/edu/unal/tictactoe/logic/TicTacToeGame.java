@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package co.edu.unal.tictactoe;
+package co.edu.unal.tictactoe.logic;
 
 import java.util.Random;
 
@@ -31,6 +31,7 @@ public class TicTacToeGame {
 	public static final char HUMAN_PLAYER = 'X';
 	public static final char COMPUTER_PLAYER = 'O';
 	public static final char OPEN_SPOT = ' ';
+
 	
 	// Random number generator
 	private Random mRand; 

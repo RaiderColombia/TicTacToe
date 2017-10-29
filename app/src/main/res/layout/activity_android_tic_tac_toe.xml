@@ -5,7 +5,7 @@
     android:layout_height="fill_parent"
     android:gravity="center_horizontal" >
 
-    <co.edu.unal.tictactoe.BoardView
+    <co.edu.unal.tictactoe.graphics.views.BoardView
         android:id="@+id/board"
         android:layout_width="300dp"
         android:layout_height="300dp"
@@ -22,74 +22,6 @@
             android:layout_marginTop="20sp"
             android:textSize="30sp"
             android:textStyle="bold" />
-
-        <TextView android:id="@+id/player_score_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/information"
-            android:text="@string/score_label_human"
-            android:gravity="center_horizontal"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="20sp"
-            android:textSize="20sp"/>
-
-        <TextView
-            android:id="@+id/player_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/information"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="20sp"
-            android:layout_toEndOf="@+id/player_score_label"
-            android:gravity="start"
-            android:text="0"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView android:id="@+id/tie_score_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/information"
-            android:layout_alignTop="@+id/player_score"
-            android:layout_centerInParent="true"
-            android:text="@string/score_label_tie"
-            android:gravity="center_horizontal"
-            android:textSize="20sp"/>
-
-        <TextView android:id="@+id/tie_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/information"
-            android:layout_toEndOf="@+id/tie_score_label"
-            android:textStyle="bold"
-            android:text="0"
-            android:gravity="start"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="20sp"
-            android:textSize="20sp"/>
-
-        <TextView android:id="@+id/computer_score_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/information"
-            android:layout_toStartOf="@+id/computer_score"
-            android:text="@string/score_label_computer"
-            android:gravity="end"
-            android:layout_marginTop="20sp"
-            android:textSize="20sp"/>
-
-        <TextView android:id="@+id/computer_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/information"
-            android:layout_alignEnd="@+id/information"
-            android:textStyle="bold"
-            android:text="0"
-            android:gravity="end"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="20sp"
-            android:textSize="20sp"/>
 
     </RelativeLayout>
 </LinearLayout>

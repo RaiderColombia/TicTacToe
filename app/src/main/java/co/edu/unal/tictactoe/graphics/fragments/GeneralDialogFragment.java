@@ -1,13 +1,15 @@
-package co.edu.unal.tictactoe;
+package co.edu.unal.tictactoe.graphics.fragments;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
+
+import co.edu.unal.tictactoe.R;
+import co.edu.unal.tictactoe.graphics.activities.AndroidTicTacToeActivity;
 
 /**
  * TicTacToe
@@ -45,6 +47,7 @@ public class GeneralDialogFragment extends DialogFragment {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 Toast.makeText(activity.getApplicationContext(), "See you soon!", Toast.LENGTH_SHORT).show();
+                                activity.removeListeners();
                                 activity.finish();
                             }
                         })
@@ -55,7 +58,6 @@ public class GeneralDialogFragment extends DialogFragment {
                         .setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                activity.resetScores();
                             }
                         })
                         .setNegativeButton("No", null);

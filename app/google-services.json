@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "755186922727",
+    "firebase_url": "https://tictactoe-unal.firebaseio.com",
+    "project_id": "tictactoe-unal",
+    "storage_bucket": "tictactoe-unal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:755186922727:android:99e9dc22416f78c9",
+        "android_client_info": {
+          "package_name": "co.edu.unal.tictactoe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "755186922727-j8d9f4bhi8ikp5t91dhajco090il5k12.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.edu.unal.tictactoe",
+            "certificate_hash": "bca402a7318c03d170b89fd35c94d8447ac847b5"
+          }
+        },
+        {
+          "client_id": "755186922727-i124bv0oq6k2e9pqco1m66ga5dis4c2p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVsS_vcgPyeHln03f59BPrsxx4goquaGI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "755186922727-i124bv0oq6k2e9pqco1m66ga5dis4c2p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

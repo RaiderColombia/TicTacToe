@@ -4,96 +4,20 @@
     android:layout_height="fill_parent"
     android:gravity="center_horizontal">
 
-    <co.edu.unal.tictactoe.BoardView
+    <co.edu.unal.tictactoe.graphics.views.BoardView
         android:id="@+id/board"
         android:layout_width="270dp"
         android:layout_height="270dp"
         android:layout_marginTop="15dp"/>
 
-    <TableLayout
+    <TextView
+        android:id="@+id/information"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/information"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="20sp"
-                android:gravity="center_horizontal"
-                android:textSize="26sp"
-                android:textStyle="bold" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/player_score_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20sp"
-                android:text="@string/score_label_human"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/player_score"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20sp"
-                android:text="0"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tie_score_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20sp"
-                android:text="@string/score_label_tie"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/tie_score"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20sp"
-                android:text="0"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/computer_score_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20sp"
-                android:text="@string/score_label_computer"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/computer_score"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20sp"
-                android:text="0"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-        </TableRow>
-    </TableLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:textSize="26sp"
+        android:textStyle="bold" />
 
 </LinearLayout>

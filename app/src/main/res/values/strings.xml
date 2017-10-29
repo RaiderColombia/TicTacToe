@@ -5,7 +5,7 @@
     <string name="score_label_tie">Ties:</string>
 
     <string name="first_human">You go first.</string>
-    <string name="first_computer">Android will go first.</string>
+    <string name="first_computer">will go first.</string>
 
     <string name="turn_human">Your turn.</string>
     <string name="turn_computer">Android\'s turn.</string>
@@ -29,4 +29,6 @@
     <string name="difficulty_expert">Expert</string>
     <string name="main_icon_description">TicTacToe Desctiption</string>
     <string name="about_app_label">Universidad Nacional de Colombia\nJhon Ramirez</string>
+    <string name="enter_nickname_hint">Enter a nickname</string>
+    <string name="play_button_label">Play</string>
 </resources>
